@@ -8,6 +8,7 @@
     "start:dev": "nodemon server.js"
   },
   "dependencies": {
+    "axios": "^0.20.0",
     "body-parser": "~1.18.3",
     "cors": "^2.8.5",
     "debug": "~4.1.1",

@@ -4,7 +4,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
-// const postRouter = require('./routes/post');
+const currencyRouter = require('./routes/currency');
 
 app.use(cors());
 app.use(logger('dev'));
@@ -12,9 +12,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', postRouter);
-app.get('/currentFxRates', (req, res) => {
-  res.status(200).send({test:'text'})
-});
+app.use('/', currencyRouter);
 
 module.exports = app;
