@@ -1,13 +1,28 @@
 const axios = require('axios');
 const parser = require('xml2json');
+const CurrencyModel = require('../models/currencyModel.js').CurrencyModel;
 
-exports.getCurrentFxRates = async function (req, res) {
+
+
+exports.saveCurrencyFxRates = async function (req, res) {
   try {
     const currencyRates = await getCurrentRates();
-    res.status(200).json(parserToJson(currencyRates));
+
+    await saveToDB(parserToJson(currencyRates), res);
   } catch (err) {
     res.status(500).json({ status: 500, message: 'err.message' });
   }
+};
+
+//DB call
+async function saveToDB(json, res) {
+  const currencyModel = new CurrencyModel({
+    array: json.FxRates.FxRate,
+  });
+  currencyModel.save(currencyModel)
+    .then(() => res.status(201).send({ status: 200, message: 'success' }))
+    .catch((err) => res.status(400).send(err));
+
 };
 
 async function getCurrentRates() {
