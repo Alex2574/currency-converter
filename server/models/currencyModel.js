@@ -9,6 +9,10 @@ const CurrencyModelSchema = new mongoose.Schema({
     type: JSON,
     required: true,
   },
+  date: {
+    type: String,
+    required: true,
+  },
 });
 
 const CurrencyModel = mongoose.model('CurrencyModel', CurrencyModelSchema)
