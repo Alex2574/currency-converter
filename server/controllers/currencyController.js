@@ -52,6 +52,7 @@ async function saveToDB(json, res) {
 
 async function getFromDB(res) {
   CurrencyModel.find({ date })
-  .then((result) => res.status(201).send(result))
-  .catch((err) => res.status(400).send(err));
+    .limit(1)
+    .then((result) => res.status(201).send(result))
+    .catch((err) => res.status(400).send(err));
 };
