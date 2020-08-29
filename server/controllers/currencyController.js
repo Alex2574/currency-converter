@@ -42,7 +42,7 @@ function parserToJson(xml) {
 //DB call
 async function saveToDB(json, res) {
   const currencyModel = new CurrencyModel({
-    array: json.FxRates.FxRate,
+    array: formatForCurrencyArray(json.FxRates.FxRate),
     date: new Date().toISOString().slice(0, 10),
   });
   currencyModel.save(currencyModel)
@@ -50,9 +50,17 @@ async function saveToDB(json, res) {
     .catch((err) => res.status(400).send(err));
 };
 
+function formatForCurrencyArray(data) {
+  let newArray = [];
+  data.forEach(element => {
+    newArray.push({ Dt: element.Dt, CcyAmt: element.CcyAmt[1] })
+  });
+  return newArray;
+};
+
 async function getFromDB(res) {
   CurrencyModel.find({ date })
     .limit(1)
-    .then((result) => res.status(201).send(result))
+    .then((result) => res.status(201).send(result[0].array))
     .catch((err) => res.status(400).send(err));
 };
