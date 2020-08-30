@@ -1,9 +1,4 @@
 const mongoose = require('mongoose');
-const cors = require('cors');
-const express = require('express');
-const app = express();
-
-
 const CurrencyModelSchema = new mongoose.Schema({
   array: {
     type: JSON,
