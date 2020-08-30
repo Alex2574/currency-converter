@@ -10,8 +10,9 @@ import { of } from 'rxjs';
 })
 
 export class AppComponent implements OnInit {
-  currencies;
+
   title = 'currency-converter';
+  currencies;
 
   currencyForm = new FormGroup({
     firstInput: new FormControl(),
@@ -20,11 +21,14 @@ export class AppComponent implements OnInit {
     secondDropdown: new FormControl(),
   });
 
+  private userId: string;
   private currencySide: boolean;
   constructor(private dataService: DataService) {
   }
 
   ngOnInit() {
+    this.userId = '_' + Math.random().toString(36).substr(2, 9);
+
     this.dataService.getAllData().pipe(
       switchMap((array: any[]) => {
         if (!array) {
@@ -35,8 +39,8 @@ export class AppComponent implements OnInit {
     ).subscribe(response => {
       this.currencies = response;
     });
+
     this.currencyForm.get('firstInput').valueChanges.subscribe(firstInputValue => {
-      console.log(firstInputValue, this.currencyForm.get('firstDropdown').value);
       this.currencySide = true;
     });
 
@@ -54,6 +58,7 @@ export class AppComponent implements OnInit {
           onlySelf: true,
           emitEvent: false
         });
+
       } else {
         const secondInputValue = this.currencyForm.get('secondInput').value;
         const result = this.calculate(secondInputValue, secondDropdownValue, firstDropdownValue);
@@ -65,11 +70,22 @@ export class AppComponent implements OnInit {
     });
   }
 
+  private logging(firstInputValue, firstDropdownValue, secondDropdownValue, result) {
+    const userInfo = {
+      userId: this.userId,
+      logInfo: `First input ${firstInputValue}, First Dropdown koef: ${firstDropdownValue}, Second Dropdown koef: ${secondDropdownValue}, Result: ${result}`
+    };
+    this.dataService.saveUserActivity(userInfo).subscribe(() => {
+    }
+    )
+  }
+
   private calculate(firstInputValue, firstDropdownValue, secondDropdownValue) {
     let result = 0;
     if (firstInputValue && firstDropdownValue && secondDropdownValue) {
       result = (firstInputValue / firstDropdownValue) * secondDropdownValue
     }
+    this.logging(firstInputValue, firstDropdownValue, secondDropdownValue, result);
     return result;
   }
 }

@@ -8,7 +8,12 @@ export class DataService {
 
   private urlSave = "http://localhost:5000/saveCurrentFxRates";
   private urlGet = "http://localhost:5000/getCurrencyFxRates";
-  constructor(public http: HttpClient) {
+  private urlUserActivity = "http://localhost:5000/saveUserActivity";
+  constructor(private http: HttpClient) {
+  }
+  
+  saveUserActivity(userInfo) {
+    return this.http.post(this.urlUserActivity, userInfo);
   }
 
   saveAllData() {
