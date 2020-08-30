@@ -51,7 +51,13 @@ async function saveToDB(json, res) {
 };
 
 function formatForCurrencyArray(data) {
-  let newArray = [];
+  let newArray = [{
+    CcyAmt: {
+      "Ccy": "EUR",
+      "Amt": "1"
+    },
+    Dt: new Date().toISOString().slice(0, 10)
+  }];
   data.forEach(element => {
     newArray.push({ Dt: element.Dt, CcyAmt: element.CcyAmt[1] })
   });
