@@ -1,29 +1,27 @@
 
 h2 {
-    max-width: 500px;
-    margin: 50px auto;
-    margin-right:400px;
+height: 5em;
+display: flex;
+align-items: center;
+justify-content: center
 }
 
 .currency-border {
-margin: 100px auto;
-justify-content: center;
-text-justify: center;
-max-width: 800px;
-margin-right:auto;
-
-
+height: 10em;
+display: flex;
+align-items: center;
+justify-content: center
 }
 
 .input-style{
-    max-width: 150px;
+max-width: 150px;
 }
 
 .equal {
-    height: 10px;
-    width: 22px;
-    border-top: 1px solid #dadada;
-    border-bottom: 1px solid #dadada;
-    display: inline-block;
-    margin: 10px 10px 0 10px;
+height: 10px;
+width: 22px;
+border-top: 1px solid #dadada;
+border-bottom: 1px solid #dadada;
+display: inline-block;
+margin: 10px 10px 0 10px;
 }
