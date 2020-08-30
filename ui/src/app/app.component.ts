@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,8 +25,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataService.getAllData().subscribe(response => {
-      console.log(response);
+    this.dataService.getAllData().pipe(
+      switchMap((array: any[]) => {
+        if (!array) {
+          return this.dataService.saveAllData();
+        }
+        return of(array);
+      })
+    ).subscribe(response => {
       this.currencies = response;
     });
     this.currencyForm.get('firstInput').valueChanges.subscribe(firstInputValue => {

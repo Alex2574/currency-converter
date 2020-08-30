@@ -6,11 +6,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataService {
 
-  private url = "http://localhost:5000/getCurrencyFxRates";
+  private urlSave = "http://localhost:5000/saveCurrentFxRates";
+  private urlGet = "http://localhost:5000/getCurrencyFxRates";
   constructor(public http: HttpClient) {
   }
 
+  saveAllData() {
+    return this.http.get(this.urlSave);
+  }
+
   getAllData() {
-    return this.http.get(this.url);
+    return this.http.get(this.urlGet);
   }
 }
