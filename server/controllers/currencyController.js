@@ -46,7 +46,7 @@ async function saveToDB(json, res) {
     date: new Date().toISOString().slice(0, 10),
   });
   currencyModel.save(currencyModel)
-    .then(() => res.status(201).send({ status: 200, message: 'success' }))
+    .then((result) => res.status(201).send(result.array))
     .catch((err) => res.status(400).send(err));
 };
 
@@ -61,6 +61,11 @@ function formatForCurrencyArray(data) {
 async function getFromDB(res) {
   CurrencyModel.find({ date })
     .limit(1)
-    .then((result) => res.status(201).send(result[0].array))
+    .then((result) => {
+      if (result[0]) {
+        return res.status(201).send(result[0].array);
+      }
+      res.status(201).send(null)
+    })
     .catch((err) => res.status(400).send(err));
 };
