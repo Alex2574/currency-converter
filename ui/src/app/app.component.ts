@@ -10,9 +10,7 @@ import { of } from 'rxjs';
 })
 
 export class AppComponent implements OnInit {
-
-  title = 'currency-converter';
-  currencies;
+  currencies: Object;
 
   currencyForm = new FormGroup({
     firstInput: new FormControl(),
