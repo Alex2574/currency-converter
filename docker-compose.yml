@@ -4,3 +4,26 @@ services:
     image: "mongo"
     ports:
       - "27017:27017"
+  nodejs-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile-dev
+    ports:
+      - "5000:5000"
+    depends_on:
+      - "mongo"
+    container_name: node-api
+    volumes:
+       - ./server:/usr/src/currency-convert/server
+       - /usr/src/currency-convert/server/node_modules
+  angular-ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile-dev
+    ports:
+      - "4200:4200"
+    container_name: angular-ui
+    volumes:
+       - ./ui:/usr/src/currency-convert/ui
+       - /usr/src/currency-convert/ui/node_modules
+
