@@ -18,6 +18,10 @@ build docker image `docker-compose build`
 
 run docker `docker-compose up` 
 
+## docker cmd
+Container log `docker logs $(sudo docker ps -aq --filter name=node-api)`
+
+
 # API locally
 DB works on URL `mongodb://localhost:27017/convert-currency`
 
@@ -29,4 +33,7 @@ Save user activity in DB  `http://localhost:5000/saveUserActivity`
 
 # Tools for DB
 To check data `MongoDB Compass`
+
 Connect to DB `mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false`
+
+
